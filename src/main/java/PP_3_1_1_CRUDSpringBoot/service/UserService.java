@@ -26,12 +26,7 @@ public class UserService {
    }
    @Transactional
    public void update(int id, User user) {
-      User user1 = userRepository.findById(id).orElse(new User());
-      user1.setId(user.getId());
-      user1.setFirstName(user.getFirstName());
-      user1.setLastName(user.getLastName());
-      user1.setEmail(user.getEmail());
-      userRepository.saveAndFlush(user1);
+      userRepository.save(user);
    }
 
    @Transactional

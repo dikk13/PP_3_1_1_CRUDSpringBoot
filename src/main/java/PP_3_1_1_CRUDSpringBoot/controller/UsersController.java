@@ -15,7 +15,7 @@ public class UsersController {
     @Autowired
     public UsersController(UserService userService) {this.userService = userService;}
 
-    @RequestMapping()
+    @GetMapping()
     public String getUsers(Model model) {
         model.addAttribute("users", userService.listUsers());
         return "users";
@@ -44,13 +44,14 @@ public class UsersController {
         return "update";
     }
 
-    @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}/update")
     public String update(@PathVariable("id") int id, @ModelAttribute("user") User user) {
         userService.update(id, user);
         return "redirect:/users";
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/{id}")
     public String delete(@PathVariable("id") int id) {
+        System.out.println(1111);
         userService.delete(id);
         return "redirect:/users";
     }
