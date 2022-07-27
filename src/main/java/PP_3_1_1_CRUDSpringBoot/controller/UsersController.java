@@ -3,6 +3,7 @@ package PP_3_1_1_CRUDSpringBoot.controller;
 import PP_3_1_1_CRUDSpringBoot.model.User;
 import PP_3_1_1_CRUDSpringBoot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,14 +46,13 @@ public class UsersController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+    public String update(@PathVariable("id") int id, @ModelAttribute("user") User user) {
         userService.update(id, user);
         return "redirect:/users";
     }
-
-    @DeleteMapping("/{id}")
-    public String delete(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userService.delete(user);
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public String delete(@ModelAttribute ("user") User user, @PathVariable int id) {
+        userService.delete(id);
         return "redirect:/users";
     }
 }

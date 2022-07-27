@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -23,13 +24,13 @@ public class UserServiceImp implements UserService {
 
    @Transactional
    @Override
-   public void delete(User user) {
-      userRepository.delete(user);
+   public void delete(int id) {
+      userRepository.deleteById(id);
 
    }@Transactional
    @Override
    public void update(int id, User user) {
-      User userUpdate = userRepository.getReferenceById(id);
+      User userUpdate = userRepository.findById(id).get();
       userUpdate.setFirstName(user.getFirstName());
       userUpdate.setLastName(user.getLastName());
       userUpdate.setEmail(user.getEmail());
@@ -39,13 +40,13 @@ public class UserServiceImp implements UserService {
    @Transactional
    @Override
    public User getUser(int id) {
-      return userRepository.getReferenceById(id);
+      return userRepository.findById(id).get();
    }
 
    @Transactional(readOnly = true)
    @Override
    public List<User> listUsers() {
-      return userRepository.findAll();
+      return (List<User>) userRepository.findAll();
    }
 
 }
