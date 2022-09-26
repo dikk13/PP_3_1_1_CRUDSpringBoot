@@ -32,7 +32,6 @@ public class UserServiceImp implements UserService{
       userRepository.save(user);
    }
 
-   @Transactional
    @Override
    public User getUser(int id) {
       return userRepository.findById(id).orElse(null);
