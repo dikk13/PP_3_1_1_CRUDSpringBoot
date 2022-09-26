@@ -38,7 +38,7 @@ public class UserServiceImp implements UserService{
       return userRepository.findById(id).orElse(null);
    }
 
-   @Transactional(readOnly = true)
+
    @Override
    public List<User> listUsers() {
       return userRepository.findAll();
